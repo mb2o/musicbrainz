@@ -63,7 +63,7 @@ define('MUSICBRAINZ_DATA_RELEASE', 'artist+counts+release-events+discs+tracks+ar
  * Constant: MUSICBRAINZ_DATA_TRACK
  * 	Shortcut for parameters that pull the max amount of data for tracks
  */
-define('MUSICBRAINZ_DATA_TRACK', 'artist+releases+puids+artist-rels+label-rels+release-rels+track-rels+url-rels+tags');
+define('MUSICBRAINZ_DATA_TRACK', 'artist+releases+puids+artist-rels+label-rels+release-rels+track-rels+url-rels+tags+isrcs');
 
 
 /*%******************************************************************************************%*/
