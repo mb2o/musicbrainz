@@ -101,7 +101,7 @@ class MusicBrainz
 	 * 	subclass - _string_ (Optional) Don't use this. This is an internal parameter.
 	 *
 	 * Returns:
-	 * 	iTunesStore $this
+	 * 	MusicBrainz $this
 	 */
 	public function __construct($subclass = null)
 	{
@@ -115,8 +115,8 @@ class MusicBrainz
 	// SETTERS
 
 	/**
-	 * Method: __construct()
-	 * 	The constructor.
+	 * Method: test_mode()
+	 * 	Enables test mode within the API. Enabling test mode will return the request URL instead of requesting it.
 	 *
 	 * Access:
 	 * 	public
@@ -125,7 +125,7 @@ class MusicBrainz
 	 * 	subclass - _string_ (Optional) Don't use this. This is an internal parameter.
 	 *
 	 * Returns:
-	 * 	iTunesStore $this
+	 * 	void
 	 */
 	public function test_mode($enabled = true)
 	{
@@ -192,8 +192,8 @@ class MusicBrainz
 	// REQUEST/RESPONSE
 
 	/**
-	 * Method: request_json()
-	 * 	Requests the JSON data, parses it, and returns it. Requires RequestCore and JSON.
+	 * Method: request()
+	 * 	Requests the XML data, parses it, and returns it. Requires RequestCore and SimpleXML.
 	 *
 	 * Parameters:
 	 * 	url - _string_ (Required) The web service URL to request.
