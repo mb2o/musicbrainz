@@ -65,6 +65,12 @@ define('MUSICBRAINZ_DATA_RELEASE', 'artist+counts+release-events+discs+tracks+ar
  */
 define('MUSICBRAINZ_DATA_TRACK', 'artist+releases+puids+artist-rels+label-rels+release-rels+track-rels+url-rels+tags+isrcs');
 
+/**
+ * Constant: MUSICBRAINZ_DATA_LABEL
+ * 	Shortcut for parameters that pull the max amount of data for tracks
+ */
+define('MUSICBRAINZ_DATA_LABEL', 'aliases+artist-rels+label-rels+release-rels+track-rels+url-rels+tags+ratings');
+
 
 /*%******************************************************************************************%*/
 // CLASS

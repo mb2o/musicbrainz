@@ -2,6 +2,8 @@ h1. MusicBrainz API
 
 This API will construct the appropriate MusicBrainz API URL to query, and use RequestCore and SimpleXML to retrieve and parse the data.
 
+It does NOT currently support *posting* data to the service.
+
 h2. Requirements
 
 * PHP 5.2
