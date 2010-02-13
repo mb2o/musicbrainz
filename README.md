@@ -18,7 +18,7 @@ The `--recursive` option was added in a 1.6.x version of Git, so make sure you'r
 
 ## Example usage
 
-If you want to make a request to lookup a track MBID, you'd do the following. This makes a request using [RequestCore](http://github.com/skyzyx/requestcore), defaults to an XML response from Flickr, and parses it with SimpleXML.
+If you want to make a request to lookup a track MBID, you'd do the following. This makes a request using [RequestCore](http://github.com/skyzyx/requestcore), defaults to an XML response, and parses it with SimpleXML.
 
 	$brainz = new MusicBrainz();
 	$response = $brainz->track('3596bea8-684c-4b22-ac7b-4feea52be173', array(
