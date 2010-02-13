@@ -17,7 +17,11 @@
 /*%******************************************************************************************%*/
 // INCLUDES
 
-require_once 'lib/servicecore/servicecore.class.php';
+// Load this if it's not included.
+if (!class_exists('ServiceCore'))
+{
+	require_once 'lib/servicecore/servicecore.class.php';
+}
 
 
 /*%******************************************************************************************%*/
