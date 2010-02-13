@@ -75,14 +75,19 @@ class MusicBrainz extends ServiceCore
 	 */
 	public function __construct($subclass = null)
 	{
-		$this->set_app_info(array(
-			'MUSICBRAINZ' => array(
-				'name' => 'api-musicbrainz',
-				'version' => '1.1',
-				'url' => 'http://github.com/skyzyx/musicbrainz/',
-				'description' => 'MusicBrainz Toolkit',
-			)
-		));
+		$this->const_namespace = 'MUSICBRAINZ';
+
+		if (!defined($this->const_namespace . '_USERAGENT'))
+		{
+			$this->set_app_info(array(
+				$this->const_namespace => array(
+					'name' => 'api-musicbrainz',
+					'version' => '1.1',
+					'url' => 'http://github.com/skyzyx/musicbrainz/',
+					'description' => 'MusicBrainz Toolkit',
+				)
+			));
+		}
 	}
 
 
