@@ -4,48 +4,24 @@
  * 	Handle the MusicBrainz API.
  *
  * Version:
- * 	2009.11.07
+ * 	2010.02.12
  *
  * Copyright:
- * 	2009 Ryan Parman
+ * 	2009-2010 Ryan Parman
  *
  * License:
- * 	Simplified BSD License - http://opensource.org/licenses/bsd-license.php
+ * 	MIT License - http://www.opensource.org/licenses/mit-license.php
  */
 
 
 /*%******************************************************************************************%*/
+// INCLUDES
+
+require_once 'lib/servicecore/servicecore.class.php';
+
+
+/*%******************************************************************************************%*/
 // CONSTANTS
-
-/**
- * Constant: MUSICBRAINZ_NAME
- * 	Name of the software.
- */
-define('MUSICBRAINZ_NAME', 'api-musicbrainz');
-
-/**
- * Constant: MUSICBRAINZ_VERSION
- * 	Version of the software.
- */
-define('MUSICBRAINZ_VERSION', '1.0');
-
-/**
- * Constant: MUSICBRAINZ_BUILD
- * 	Build ID of the software.
- */
-define('MUSICBRAINZ_BUILD', gmdate('YmdHis', strtotime(substr('$Date$', 7, 25)) ? strtotime(substr('$Date$', 7, 25)) : filemtime(__FILE__)));
-
-/**
- * Constant: MUSICBRAINZ_URL
- * 	URL to learn more about the software.
- */
-define('MUSICBRAINZ_URL', 'http://github.com/skyzyx/musicbrainz/');
-
-/**
- * Constant: MUSICBRAINZ_USERAGENT
- * 	User agent string used to identify the software
- */
-define('MUSICBRAINZ_USERAGENT', MUSICBRAINZ_NAME . '/' . MUSICBRAINZ_VERSION . ' (MusicBrainz Toolkit; ' . MUSICBRAINZ_URL . ') Build/' . MUSICBRAINZ_BUILD);
 
 /**
  * Constant: MUSICBRAINZ_DATA_ARTIST
@@ -78,20 +54,8 @@ define('MUSICBRAINZ_DATA_LABEL', 'aliases+artist-rels+label-rels+release-rels+tr
 /**
  * Class: MusicBrainz
  */
-class MusicBrainz
+class MusicBrainz extends ServiceCore
 {
-	/**
-	 * Property: subclass
-	 * 	The API subclass (e.g. search, lookup) to point the request to.
-	 */
-	var $subclass;
-
-	/**
-	 * Property: test_mode
-	 * 	Whether we're in test mode or not.
-	 */
-	var $test_mode;
-
 
 	/*%******************************************************************************************%*/
 	// CONSTRUCTOR
@@ -111,32 +75,14 @@ class MusicBrainz
 	 */
 	public function __construct($subclass = null)
 	{
-		// Set default values
-		$this->subclass = $subclass;
-		$this->test_mode = false;
-	}
-
-
-	/*%******************************************************************************************%*/
-	// SETTERS
-
-	/**
-	 * Method: test_mode()
-	 * 	Enables test mode within the API. Enabling test mode will return the request URL instead of requesting it.
-	 *
-	 * Access:
-	 * 	public
-	 *
-	 * Parameters:
-	 * 	subclass - _string_ (Optional) Don't use this. This is an internal parameter.
-	 *
-	 * Returns:
-	 * 	void
-	 */
-	public function test_mode($enabled = true)
-	{
-		// Set default values
-		$this->test_mode = $enabled;
+		$this->set_app_info(array(
+			'MUSICBRAINZ' => array(
+				'name' => 'api-musicbrainz',
+				'version' => '1.1',
+				'url' => 'http://github.com/skyzyx/musicbrainz/',
+				'description' => 'MusicBrainz Toolkit',
+			)
+		));
 	}
 
 
@@ -146,7 +92,7 @@ class MusicBrainz
 	/**
 	 * Handle requests to properties
 	 */
-	function __get($var)
+	public function __get($var)
 	{
 		// Determine the name of this class
 		$class_name = get_class($this);
@@ -158,7 +104,7 @@ class MusicBrainz
 	/**
 	 * Handle requests to methods
 	 */
-	function __call($name, $args)
+	public function __call($name, $args)
 	{
 		// Change the names of the methods to match what the API expects
 		$name = strtolower(str_replace('_', '-', $name));
@@ -191,43 +137,5 @@ class MusicBrainz
 
 		// Return the value
 		return $this->request($api_call);
-	}
-
-
-	/*%******************************************************************************************%*/
-	// REQUEST/RESPONSE
-
-	/**
-	 * Method: request()
-	 * 	Requests the XML data, parses it, and returns it. Requires RequestCore and SimpleXML.
-	 *
-	 * Parameters:
-	 * 	url - _string_ (Required) The web service URL to request.
-	 *
-	 * Returns:
-	 * 	ResponseCore object
-	 */
-	public function request($url)
-	{
-		if (!$this->test_mode)
-		{
-			if (class_exists('RequestCore'))
-			{
-				$http = new RequestCore($url);
-				$http->set_useragent(MUSICBRAINZ_USERAGENT);
-				$http->send_request();
-
-				$response = new stdClass();
-				$response->header = $http->get_response_header();
-				$response->body = new SimpleXMLElement($http->get_response_body(), LIBXML_NOCDATA);
-				$response->status = $http->get_response_code();
-
-				return $response;
-			}
-
-			throw new Exception('This class requires RequestCore. http://requestcore.googlecode.com');
-		}
-
-		return $url;
 	}
 }
