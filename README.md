@@ -10,7 +10,7 @@ This MusicBrainz class is built on top of [ServiceCore](http://github.com/skyzyx
 
 ## Setup
 
-	git clone git://github.com/skyzyx/servicecore.git
+	git clone git://github.com/skyzyx/musicbrainz.git
 	git submodule update --init --recursive
 
 The `--recursive` option was added in a 1.6.x version of Git, so make sure you're running the latest version.
